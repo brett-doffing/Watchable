@@ -1,10 +1,10 @@
 import cv2, threading
 import depthai as dai
-from Camera_Model import Camera_Model
+from CameraModel import CameraModel
 
-class Camera_Stream:
+class CameraStream:
     def __init__(self, cam_name):
-        self.model = Camera_Model(cam_name)
+        self.model = CameraModel(cam_name)
         # initialize the video camera stream 
         # and read the first frame from the stream
         self.stream = self.get_stream()

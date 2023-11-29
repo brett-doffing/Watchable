@@ -2,7 +2,6 @@ from tkinter import *
 from tkCamera import tkCamera
 from collections import OrderedDict
 from ZMQHub import ZMQHub
-import threading
 from queue import Queue, Empty
 
 class CamsView(Frame):

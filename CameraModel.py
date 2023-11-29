@@ -1,6 +1,6 @@
 import pickle
 
-class Camera_Model(object):
+class CameraModel(object):
     def __init__(self, cam_name):
         self.name = cam_name
         # self.cam_mtx, self.dist_mtx = self.get_camera_matricies()

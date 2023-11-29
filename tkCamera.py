@@ -1,7 +1,6 @@
 from tkinter import *
 from PIL import Image
 from PIL import ImageTk
-from Hub import Hub
 import cv2
 
 class tkCamera(Frame):
@@ -12,10 +11,6 @@ class tkCamera(Frame):
         self.name = name
         self.width  = 320
         self.height = 240
-        # self.other_sources = sources
-
-        # self.cam = Camera(name)
-        # self.config(highlightcolor="gray", highlightthickness=1)
         
         self.label = Label(self, text=name)
         self.label.pack()
