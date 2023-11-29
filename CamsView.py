@@ -17,30 +17,16 @@ class CamsView(Frame):
 
         self.parent.protocol("WM_DELETE_WINDOW", self.on_closing)
 
-        # columns = 3
-        # for i in range(6):
-        #     cam = tkCamPlaceholder(self.parent, name=f"Cam {i}")
-        #     row = i // columns
-        #     col = i % columns
-        #     cam.grid(row=row, column=col)
-        #     cam.update()
-
-        self.hub = Hub(self.q)
+        self.hub = ZMQHub(self.q)
         self.after(1, self.process_queue)
 
     def process_queue(self):
-        # print("[App] process_frame")
         try:
             cam_dict = self.q.get_nowait()
-            # self.q.task_done()
             self.process_frame(cam_dict)
-                
         except Empty:
             pass
-        # else:
-        #     # print(f'Processing item {cam_dict["name"]}')
-        #     self.process_frame(cam_dict)
-        #     # q.task_done()
+
         self.after(1, self.process_queue)
 
     def add_camera_widget(self, cam_name):
