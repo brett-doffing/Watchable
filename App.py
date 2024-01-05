@@ -22,5 +22,9 @@ if __name__ == "__main__":
         label="File",
         menu=file_menu
     )
+    file_menu.add_command(
+        label='Calibrate',
+        command=app.calibrate
+    )
     
     root.mainloop()

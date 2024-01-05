@@ -3,6 +3,8 @@ from TKCamera import TKCamera
 from collections import OrderedDict
 from ZMQHub import ZMQHub
 from queue import Queue, Empty
+import cv2
+import numpy as np
 
 class CamsView(Frame):
     def __init__(self, parent):
@@ -19,6 +21,7 @@ class CamsView(Frame):
         self.hub = ZMQHub(self.q)
         self.after(1, self.process_queue)
 
+
     def process_queue(self):
         try:
             cam_dict = self.q.get_nowait()
@@ -28,21 +31,12 @@ class CamsView(Frame):
 
         self.after(1, self.process_queue)
 
+
     def add_camera_widget(self, cam_name):
         """TODO: add docstring"""
         widget = TKCamera(self.parent, cam_name)
         self.stream_widgets.append(widget)
 
-    def update_feeds(self):
-        """TODO: add docstring"""
-        columns = 3
-        for number, widget in enumerate(self.stream_widgets):
-            if widget.name in self.frame_buffer:
-                img = self.frame_buffer[widget.name]
-                row = number // columns
-                col = number % columns
-                widget.grid(row=row, column=col)
-                widget.update_feed(img)
 
     def process_frame(self, cam_dict):
         """TODO: add docstring"""
@@ -61,6 +55,19 @@ class CamsView(Frame):
 
         self.update_feeds()
 
+
+    def update_feeds(self):
+        """TODO: add docstring"""
+        columns = 3
+        for number, widget in enumerate(self.stream_widgets):
+            if widget.name in self.frame_buffer:
+                img = self.frame_buffer[widget.name]
+                row = number // columns
+                col = number % columns
+                widget.grid(row=row, column=col)
+                widget.update_feed(img)
+
+
     def on_closing(self, event=None):
         """TODO: add docstring"""
 
@@ -71,5 +78,9 @@ class CamsView(Frame):
 
         print("[App] exit")
         self.parent.destroy()
+
+    def calibrate(self):
+        for widget in self.stream_widgets:
+            cv2.imwrite(f"Calibration/images/{widget.name}.jpg", np.array(widget.image))
 
             
