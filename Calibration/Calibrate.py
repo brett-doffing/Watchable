@@ -1,12 +1,12 @@
+import os
 import cv2
 import numpy as np
 
 # Step 1: Capture Images
+path = os.path.join(os.getcwd(), "Calibration", "images")
 # Load images
-img1 = cv2.imread('/home/soren/watchful/Calibration/images/cam_onn.jpg')
-img2 = cv2.imread('/home/soren/watchful/Calibration/images/cam_oak.jpg')
-print(img1.shape)
-print(img2.shape)
+img1 = cv2.imread(f'{path}/cam_onn.jpg')
+img2 = cv2.imread(f'{path}/cam_oak.jpg')
 
 # Step 2: Extract SIFT Features
 # Convert to grayscale
