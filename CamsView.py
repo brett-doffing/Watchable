@@ -1,5 +1,5 @@
 from tkinter import *
-from tkCamera import tkCamera
+from TKCamera import TKCamera
 from collections import OrderedDict
 from ZMQHub import ZMQHub
 from queue import Queue, Empty
@@ -30,7 +30,7 @@ class CamsView(Frame):
 
     def add_camera_widget(self, cam_name):
         """TODO: add docstring"""
-        widget = tkCamera(self.parent, cam_name)
+        widget = TKCamera(self.parent, cam_name)
         self.stream_widgets.append(widget)
 
     def update_feeds(self):

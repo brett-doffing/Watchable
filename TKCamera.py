@@ -3,7 +3,7 @@ from PIL import Image
 from PIL import ImageTk
 import cv2
 
-class tkCamera(Frame):
+class TKCamera(Frame):
     def __init__(self, parent, name=""):
         """TODO: add docstring"""
         Frame.__init__(self, parent, highlightbackground="black", highlightthickness=1)
