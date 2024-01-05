@@ -8,6 +8,9 @@ path = os.path.join(os.getcwd(), "Calibration", "images")
 img1 = cv2.imread(f'{path}/cam_onn.jpg')
 img2 = cv2.imread(f'{path}/cam_oak.jpg')
 
+img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
+img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
+
 # Step 2: Extract SIFT Features
 # Convert to grayscale
 gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
@@ -41,7 +44,7 @@ img_matches = cv2.drawMatches(img1, kp1, img2, kp2, good_matches, None, flags=cv
 cv2.imshow('Matches', img_matches)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-"""
+
 # Step 5: Find Fundamental Matrix
 # Extract corresponding points
 pts1 = np.float32([kp1[m.queryIdx].pt for m in good_matches]).reshape(-1, 1, 2)
@@ -72,4 +75,9 @@ points_4d = cv2.triangulatePoints(P1, P2, pts1.T, pts2.T)
 
 # Convert to homogeneous coordinates
 points_3d = cv2.convertPointsFromHomogeneous(points_4d.T)
-"""
+
+print(f"Fundamental Matrix:\n{F}")
+print(f"Essential Matrix:\n{E}")
+print(f"Relative Translation:\n{t}")
+# print(f"Triangulated points:\n{points_4d}")
+# print(f"Homogeneous coordinates:\n{points_3d}")
