@@ -26,7 +26,7 @@ kp2, des2 = sift.detectAndCompute(gray2, None)
 # Step 3: Match Features
 # FLANN parameters
 FLANN_INDEX_KDTREE = 1
-index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=10)
+index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
 search_params = dict(checks=50)
 
 # Use FLANN to find best matches
