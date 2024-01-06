@@ -12,19 +12,24 @@ if __name__ == "__main__":
     root.config(menu=menubar)
     # create a menu
     file_menu = Menu(menubar)
-    # add a menu item to the menu
-    file_menu.add_command(
-        label='Exit',
-        command=root.destroy
-    )
+    calibrate_menu = Menu(menubar)
     # add the File menu to the menubar
     menubar.add_cascade(
         label="File",
         menu=file_menu
     )
+    menubar.add_cascade(
+        label="Calibration",
+        menu=calibrate_menu
+    )
+    # add a menu item to the menu
     file_menu.add_command(
+        label='Exit',
+        command=root.destroy
+    )
+    calibrate_menu.add_command(
         label='Calibrate',
-        command=app.calibrate
+        command=app.calibrate,
     )
     
     root.mainloop()
