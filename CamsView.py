@@ -1,4 +1,3 @@
-import os
 from tkinter import *
 from TKCamera import TKCamera
 from collections import OrderedDict
@@ -6,6 +5,7 @@ from ZMQHub import ZMQHub
 from queue import Queue, Empty
 import cv2
 import numpy as np
+from Calibration import Calibrate
 
 class CamsView(Frame):
     def __init__(self, parent):
@@ -84,4 +84,4 @@ class CamsView(Frame):
         for widget in self.stream_widgets:
             cv2.imwrite(f"Calibration/images/{widget.name}.jpg", np.array(widget.image))
 
-        os.system('python Calibration/Calibrate.py')
+        Calibrate.run()

@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import glob
 
-if __name__ == "__main__":
+def run():
     # Step 1: Capture Images
     # Load images
     path = os.path.dirname(os.path.realpath(__file__))
