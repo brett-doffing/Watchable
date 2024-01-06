@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 from TKCamera import TKCamera
 from collections import OrderedDict
@@ -83,4 +84,4 @@ class CamsView(Frame):
         for widget in self.stream_widgets:
             cv2.imwrite(f"Calibration/images/{widget.name}.jpg", np.array(widget.image))
 
-            
+        os.system('python Calibration/Calibrate.py')
