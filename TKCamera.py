@@ -27,6 +27,7 @@ class TKCamera(Frame):
         if img is not None:
             self.image = img
             image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+            image = cv2.resize(image, (320, 240))
             self.image = Image.fromarray(image)
             self.photo = ImageTk.PhotoImage(image=self.image)
             self.img_label.config(image=self.photo)
