@@ -1,10 +1,10 @@
 import cv2, threading
 import depthai as dai
-from CameraModel import CameraModel
+from .CameraType import CameraType
 
 class CameraStream:
-    def __init__(self, cam_name):
-        self.model = CameraModel(cam_name)
+    def __init__(self, model):
+        self.model = model
         # initialize the video camera stream 
         # and read the first frame from the stream
         self.stream = self.get_stream()
@@ -25,7 +25,7 @@ class CameraStream:
             if self.stopped:
                 return
 			# otherwise, read the next frame from the stream
-            if (self.model.is_oak):
+            if (self.model.type == CameraType.OAK):
                 q = self.stream.getOutputQueue(name="rgb", maxSize=4, blocking=False)
                 preview = q.get()
                 self.frame = preview.getCvFrame()
@@ -41,7 +41,7 @@ class CameraStream:
         self.stopped = True
     
     def get_stream(self):
-        if (self.model.is_oak):
+        if (self.model.type == CameraType.OAK):
             # Create pipeline
             pipeline = dai.Pipeline()
 
