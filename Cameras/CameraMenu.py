@@ -27,7 +27,7 @@ class CameraMenu(Toplevel):
         cam_type = CameraType[self.strSelectedType.get()]
         cwd = os.getcwd()
         index = len(self.broadcasts) + 1
-        process = subprocess.Popen(['python', f'{cwd}/broadcast.py', '-n', f'Cam {index}', '-t', cam_type.name]) # TODO: Assure Directory
+        process = subprocess.Popen(['python', f'{cwd}/Broadcast.py', '-n', f'Cam {index}', '-t', cam_type.name]) # TODO: Assure Directory
         self.broadcasts.append(process)
         self.destroy()
 

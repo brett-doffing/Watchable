@@ -27,5 +27,4 @@ if __name__ == "__main__":
 
     while True:
         image = cam.read()
-        if image is not None:
-            sender.send_image(cam.model.name, image)
+        sender.send_image(cam.model.name, image)
