@@ -9,7 +9,6 @@ class CameraMenu(Toplevel):
         self.broadcasts = broadcasts
         self.title('Broadcast Camera')
         self.geometry('300x200')
-        self.ip_addr = None
         self.strSelectedType = StringVar()
         self.strSelectedType.set(CameraType.USB.name)
         self.container = Frame(self)
@@ -17,7 +16,8 @@ class CameraMenu(Toplevel):
         self.dropDown = OptionMenu(self.container, self.strSelectedType, *[x.name for x in CameraType], command=self.selected)
         # self.dropDown.config(width=100)
         self.dropDown.pack(padx=10, pady=10, expand=1, fill=X)
-        self.entry_ip = Entry(self.container, state=DISABLED)
+        self.ip_text = StringVar()
+        self.entry_ip = Entry(self.container, state=DISABLED, textvariable=self.ip_text)
         self.entry_ip.pack(ipady=3, padx=10, expand=1, fill=X)
         self.btnBroadcast = Button(self, text='Broadcast', command=self.broadcast)
         self.btnBroadcast.pack(side=BOTTOM, pady=10)
@@ -27,7 +27,8 @@ class CameraMenu(Toplevel):
         cam_type = CameraType[self.strSelectedType.get()]
         cwd = os.getcwd()
         index = len(self.broadcasts) + 1
-        process = subprocess.Popen(['python', f'{cwd}/Broadcast.py', '-n', f'Cam {index}', '-t', cam_type.name]) # TODO: Assure Directory
+
+        process = subprocess.Popen(['python', f'{cwd}/Broadcast.py', '-n', f'Cam {index}', '-t', cam_type.name, '-ip', self.ip_text.get()]) # TODO: Assure Directory
         self.broadcasts.append(process)
         self.destroy()
 
