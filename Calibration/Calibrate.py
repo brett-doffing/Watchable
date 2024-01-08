@@ -64,30 +64,31 @@ def run():
         # Camera matrices (assuming no lens distortion)
         K = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
-        # Essential matrix
-        E = K.T @ F @ K
+        # # Essential matrix
+        # E = K.T @ F @ K
 
-        # Step 7: Decompose Essential Matrix
-        # Decompose essential matrix to get relative rotation and translation
-        retval, R, t, mask = cv2.recoverPose(E, pts1, pts2, K)
+        # # Step 7: Decompose Essential Matrix
+        # # Decompose essential matrix to get relative rotation and translation
+        # retval, R, t, mask = cv2.recoverPose(E, pts1, pts2, K)
 
-        # Now, R is the relative rotation matrix, and t is the relative translation vector. 
-        # The camera matrices for the two cameras can be constructed as follows:
-        P1 = np.hstack((np.eye(3), np.zeros((3, 1))))
-        P2 = np.hstack((R, t))
+        # # Now, R is the relative rotation matrix, and t is the relative translation vector. 
+        # # The camera matrices for the two cameras can be constructed as follows:
+        # P1 = np.hstack((np.eye(3), np.zeros((3, 1))))
+        # P2 = np.hstack((R, t))
 
-        # Step 8: Triangulate 3D Points
-        # Triangulate points
-        points_4d = cv2.triangulatePoints(P1, P2, pts1.T, pts2.T)
+        # # Step 8: Triangulate 3D Points
+        # # Triangulate points
+        # points_4d = cv2.triangulatePoints(P1, P2, pts1.T, pts2.T)
 
-        # Convert to homogeneous coordinates
-        points_3d = cv2.convertPointsFromHomogeneous(points_4d.T)
+        # # Convert to homogeneous coordinates
+        # points_3d = cv2.convertPointsFromHomogeneous(points_4d.T)
 
-        print(f"Fundamental Matrix:\n{F}")
-        print(f"Essential Matrix:\n{E}")
-        print(f"Relative Translation:\n{t}")
+        print(f"Fundamental Matrix {i}:\n{F}")
+        # print(f"Essential Matrix:\n{E}")
+        # print(f"Relative Translation:\n{t}")
         # Query detected keypoints with match indicies
-        print(f"Good Match Points {i}:\n{[(kp1[match.queryIdx].pt, kp2[match.trainIdx].pt) for match in good_matches]}")
+        # print(f"Good Match Points {i}:\n{[(kp1[match.queryIdx].pt, kp2[match.trainIdx].pt) for match in good_matches]}")
+        print(f"Good Match Points {i}: {len(good_matches)}")
         # print(f"Triangulated points:\n{points_4d}")
         # print(f"Homogeneous coordinates:\n{points_3d}")
 

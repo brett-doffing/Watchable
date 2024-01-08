@@ -14,6 +14,7 @@ ap.add_argument("-ip", "--ip_addr", required=False,
 	help="IP address")
 
 if __name__ == "__main__":
+    """Script to broadcast a camera feed to localhost."""
     args = vars(ap.parse_args())
 
     name = args["name"]

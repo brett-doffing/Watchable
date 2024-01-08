@@ -8,8 +8,24 @@ import numpy as np
 from Calibration import Calibrate
 
 class CamsView(Frame):
+    """
+    A class representing A tkinter Frame that displays multiple camera feeds.
+ 
+    Attributes:
+        parent (tkinter.Tk): The parent tkinter window.
+        stream_widgets (list): A list of TKCamera widgets.
+        frame_buffer (dict): A dictionary of frames.
+        q (Queue): A queue of frames.
+        hub (ZMQHub): A ZMQHub instance.
+    """
+
     def __init__(self, parent):
-        """TODO: add docstring"""
+        """
+        Initializes a CamsView instance.
+
+        Parameters:
+            parent (tkinter.Tk): The parent tkinter window.
+        """
         Frame.__init__(self, parent)
 
         self.parent = parent
@@ -24,6 +40,7 @@ class CamsView(Frame):
 
 
     def process_queue(self):
+        """Grabs the latest frame from the queue and processes it."""
         try:
             cam_dict = self.q.get_nowait()
             self.process_frame(cam_dict)
@@ -34,16 +51,23 @@ class CamsView(Frame):
 
 
     def add_camera_widget(self, cam_name):
-        """TODO: add docstring"""
+        """
+        Adds a new camera widget to the grid
+        Parameters:
+            cam_name (str): The name of the camera.
+        """
         widget = TKCamera(self.parent, cam_name)
         self.stream_widgets.append(widget)
 
 
     def process_frame(self, cam_dict):
-        """TODO: add docstring"""
+        """
+        Processes a frame from the queue by adding it to the frame buffer and updating the feeds.
+        Parameters:
+            cam_dict (dict): A dictionary containing the name and image frame of the camera.
+        """
         name = cam_dict['name'] 
         frame = cam_dict['frame']
-        # frame = draw_marker_detections(frame)
             
         self.frame_buffer[name] = frame
 
@@ -58,7 +82,7 @@ class CamsView(Frame):
 
 
     def update_feeds(self):
-        """TODO: add docstring"""
+        """Updates the feeds of all the camera widgets."""
         columns = 3
         for number, widget in enumerate(self.stream_widgets):
             if widget.name in self.frame_buffer:
@@ -69,9 +93,8 @@ class CamsView(Frame):
                 widget.update_feed(img)
 
 
-    def on_closing(self, event=None):
-        """TODO: add docstring"""
-
+    def on_closing(self):
+        """Called when the window is closed."""
         print("[App] stopping threads")
         self.hub.close()
         for widget in self.stream_widgets:
@@ -80,7 +103,13 @@ class CamsView(Frame):
         print("[App] exit")
         self.parent.destroy()
 
+
     def calibrate(self):
+        """
+        Called when the calibrate menu bar option is pressed.
+        Saves the images of the camera widgets to the Calibration/images folder.
+        Runs the calibration process.
+        """
         for widget in self.stream_widgets:
             cv2.imwrite(f"Calibration/images/{widget.name}.jpg", np.array(widget.image))
 

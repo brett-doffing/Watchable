@@ -5,7 +5,7 @@ import cv2
 
 class TKCamera(Frame):
     def __init__(self, parent, name=""):
-        """TODO: add docstring"""
+        """A tkinter Frame that displays a camera feed"""
         Frame.__init__(self, parent, highlightbackground="black", highlightthickness=1)
 
         self.name = name
@@ -23,7 +23,7 @@ class TKCamera(Frame):
         self.image = None
 
     def update_feed(self, img):
-        """TODO: add docstring"""
+        """Updates the feed of the camera widget with the given image"""
         if img is not None:
             self.image = img
             image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
